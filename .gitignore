@@ -9,4 +9,3 @@ npm-debug.log
 sonar-project.properties
 !**/README.md
 config.json
-/functions/story.js

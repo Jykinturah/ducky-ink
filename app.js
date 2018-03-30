@@ -6,7 +6,7 @@ var Discord = require('discord.js'),
   memory = require('node-persist'),
   chance = require('chance');
 
-moment.tz.setDefault("America/New_York");
+moment.tz.setDefault("America/Los_Angeles");
 memory.initSync();
 
 var DuckyInk = new function() {
@@ -200,11 +200,14 @@ var DuckyInk = new function() {
               args = message.cleanContent.split(prompt).pop().trim()
               match = message.cleanContent.match(prompt);
             }
-            
+
             if (
               match && // is a match
               bot.helpers.isChannel(message.channel, command.channels) && // Correct channel
-              bot.helpers.memberHasRole(message.author.id, command.role)  && // Correct permission level
+              (
+                bot.config.admin.includes(message.author.id) || // if admin shortcircuit role check
+                bot.helpers.memberHasRole(message.author.id, command.role)
+              ) && // Correct permission level
               (
                 isMentioned || // Is mentioned OR
                 // Doesn't require mentioning and triggers likelihood check (default: always)

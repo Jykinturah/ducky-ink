@@ -1,5 +1,5 @@
 var Chance = require('chance'),
-    chance = new Chance();
+  chance = new Chance();
 
 module.exports = {
   command: {
@@ -16,6 +16,6 @@ module.exports = {
     ]
   },
   execute: function(bot, args, message) {
-    message.channel.sendMessage(chance.pickone(bot.soul("raritwi")));
+    message.channel.send(chance.pickone(bot.soul("raritwi")));
   }
 }

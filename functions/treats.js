@@ -1,6 +1,6 @@
 var Chance = require('chance'),
-    chance = new Chance(),
-    emoji = require('node-emoji');
+  chance = new Chance(),
+  emoji = require('node-emoji');
 
 module.exports = {
   command: {
@@ -25,6 +25,6 @@ module.exports = {
     ]
   },
   execute: function(bot, args, message) {
-    message.channel.sendMessage(chance.pickone(bot.soul("treatResponses")));
+    message.channel.send(chance.pickone(bot.soul("treatResponses")));
   }
 }

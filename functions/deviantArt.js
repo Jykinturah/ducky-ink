@@ -20,7 +20,7 @@ module.exports = {
   execute: function(bot, args, message) {
     var self = this;
 
-    setTimeout(function () {
+    setTimeout(function() {
       if (message.embeds.length == 0) {
         var link = message.content.match(self.command.prompts[0]);
 

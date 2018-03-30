@@ -12,7 +12,7 @@ module.exports = function(bot) {
       if (message.channel.type == "dm" || message.isMentioned(bot.client.user)) {
         var responseList = [];
 
-        if (bot.soul('userResponses')[message.author.id]) {
+        if (bot.random.bool() && bot.soul('userResponses')[message.author.id]) {
           responseList = responseList.concat(bot.soul('userResponses')[message.author.id]);
         }
 
@@ -151,12 +151,15 @@ module.exports = function(bot) {
     },
 
     memberHasRole: function(userId, checkRole) {
+      if (checkRole == 'All') {
+        return true;
+      }
+
       if (!Array.isArray(checkRole)) {
         checkRole = [checkRole];
       }
 
       for (var i = 0, len = checkRole.length; i < len; i++) {
-        if (checkRole[i] == 'All') { return true; }
         var role = bot.server.roles.find('name', checkRole[i]);
 
         if (!role) {
