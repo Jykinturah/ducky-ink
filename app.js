@@ -35,6 +35,8 @@ var DuckyInk = new function() {
       console.log("Logged in as " + bot.client.user.username + " (" + bot.client.user.id + ")");
       console.log("No matter who I am logged in as, I am still SoulBot at heart.");
 
+      bot.client.user.setActivity('with your heart');
+
       if (bot.client.guilds.length == 0) {
         console.error("Please add me to a server first!");
         return false;
