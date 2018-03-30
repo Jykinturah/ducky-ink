@@ -30,5 +30,5 @@
     "beautify": "node ./beautify.js"
   },
   "author": "Jykinturah",
-  "license": "ISC"
+  "license": "MIT"
 }
