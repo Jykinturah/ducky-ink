@@ -1,0 +1,13 @@
+{
+  "clientId": <bot_token>,
+  "guildId": <discord_server_id>,
+  "botId": <bot_id>,
+  "mainChat": <default_chat>,
+  "announceNewUsers": false/true,
+  "greetNewUsersPersonally": false/true,
+  "promptCharacter": <prefix>,
+  "fimfictionAccessKey": <fimfic_api_key>, 
+  "admin":[
+    <admin_user_id(s)>
+  ]
+}

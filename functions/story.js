@@ -23,7 +23,10 @@ module.exports = {
         'veil': 329741,
         'beyond the veil': 329741,
         'blood moon': 373983,
-        'glow': 350834
+        'glow': 350834,
+        'el': 240255,
+        'ek': 379911,
+        'ie': 167615
       };
 
     if (!isNaN(parseFloat(args))) {
