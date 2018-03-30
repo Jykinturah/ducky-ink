@@ -156,6 +156,7 @@ module.exports = function(bot) {
       }
 
       for (var i = 0, len = checkRole.length; i < len; i++) {
+        if (checkRole[i] == 'All') { return true; }
         var role = bot.server.roles.find('name', checkRole[i]);
 
         if (!role) {

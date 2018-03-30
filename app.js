@@ -9,7 +9,7 @@ var Discord = require('discord.js'),
 moment.tz.setDefault("America/New_York");
 memory.initSync();
 
-var SoulBot = new function() {
+var DuckyInk = new function() {
   this.client = new Discord.Client();
   this.connected = false; // TODO: can this be done a better way?
   this.brain = brain;
@@ -121,7 +121,7 @@ var SoulBot = new function() {
     /**
      * EVENT : New Member
      * - Fired when someone new joins the server.
-     * Depending on the configuration settings, SoulBot will greet new users.
+     * Depending on the configuration settings, DuckyInk will greet new users.
      **/
     bot.client.on("guildMemberAdd", function(user) {
       setTimeout(function() {
@@ -200,11 +200,11 @@ var SoulBot = new function() {
               args = message.cleanContent.split(prompt).pop().trim()
               match = message.cleanContent.match(prompt);
             }
-
+            
             if (
               match && // is a match
               bot.helpers.isChannel(message.channel, command.channels) && // Correct channel
-              bot.helpers.memberHasRole(message.author.id, command.role) && // Correct permission level
+              bot.helpers.memberHasRole(message.author.id, command.role)  && // Correct permission level
               (
                 isMentioned || // Is mentioned OR
                 // Doesn't require mentioning and triggers likelihood check (default: always)
@@ -232,4 +232,4 @@ var SoulBot = new function() {
   };
 }
 
-SoulBot.run();
+DuckyInk.run();

@@ -1,6 +1,4 @@
 **/no-git
-/functions/*
-/timers/*
 /soul/*
 /logs/*
 /node_modules
@@ -11,3 +9,4 @@ npm-debug.log
 sonar-project.properties
 !**/README.md
 config.json
+/functions/story.js
