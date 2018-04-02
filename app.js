@@ -4,12 +4,14 @@ var Discord = require('discord.js'),
   moment = require('moment-timezone'),
   brain = require('natural'),
   memory = require('node-persist'),
-  chance = require('chance');
+  chance = require('chance'),
+  MongoClient = require('mongodb').MongoClient;
 
 moment.tz.setDefault("America/Los_Angeles");
 memory.initSync();
 
 var DuckyInk = new function() {
+  this.db = null;
   this.client = new Discord.Client();
   this.connected = false; // TODO: can this be done a better way?
   this.brain = brain;
@@ -23,6 +25,12 @@ var DuckyInk = new function() {
 
   this.run = function() {
     var bot = this;
+
+    MongoClient.connect("mongodb://localhost:27017/duckydb", (err,database) => {
+      if (err) throw err;
+      console.log("MongoDB Connected! Database: duckydb");
+      db = database;
+    });
 
     bot.client.login(bot.config.clientId);
 
@@ -100,6 +108,7 @@ var DuckyInk = new function() {
           // Shortcut the data & soul helpers function
           bot.data = bot.helpers.data;
           bot.soul = bot.helpers.soul;
+          bot.settings = bot.helpers.settings;
 
           // Clear memory
           delete require.cache[require.resolve(path)];
@@ -236,5 +245,15 @@ var DuckyInk = new function() {
     });
   };
 }
+
+// process.on('SIGINT', endproc());
+// process.on('SIGTERM', endproc());
+
+// function endproc(){
+//   console.log("Closing DB Connection (MongoClient)");
+//   DuckyInk.db.close();
+//   MongoClient.close();
+//   process.exit();
+// }
 
 DuckyInk.run();

@@ -221,6 +221,10 @@ module.exports = function(bot) {
       return bot.helpers.getFromCache('soul', file);
     },
 
+    settings: function(file) {
+      return bot.helpers.getFromCache('settings', file);
+    },
+
     data: function(file) {
       return bot.helpers.getFromCache('data', file);
     },
@@ -252,6 +256,10 @@ module.exports = function(bot) {
 
     updateSoul: function(file) {
       bot.helpers.updateFromCache('soul', file);
+    },
+
+    updateSettings: function(file) {
+      bot.helpers.updateFromCache('settings', file);
     },
 
     updateData: function(file) {

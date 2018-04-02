@@ -39,7 +39,7 @@ module.exports = {
       bot.helpers.getJSON({
         url: "https://www.fimfiction.net/api/v2/stories?sort=-relevance&" + (storyId != 0 ? 'filter[ids]=' + storyId : 'query=' + args),
         headers: {
-          "User-Agent": "SoulBOT/1.0",
+          "User-Agent": bot.config.userAgent,
           "Authorization": "Bearer " + bot.config.fimfictionAccessKey
         }
       }, function(response) {

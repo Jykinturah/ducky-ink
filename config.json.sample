@@ -6,6 +6,7 @@
   "announceNewUsers": false/true,
   "greetNewUsersPersonally": false/true,
   "promptCharacter": <prefix>,
+  "userAgent": <user_agent>,
   "fimfictionAccessKey": <fimfic_api_key>, 
   "admin":[
     <admin_user_id(s)>

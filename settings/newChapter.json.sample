@@ -1,0 +1,7 @@
+{
+	"fimficStoryID":"<story_id>",
+	"authorID":"<author_id>",
+	"guildID":"<server_id>",
+	"channelName":"<target_channel_name>",
+	"mentionRole":"<target_role_name>"
+}
