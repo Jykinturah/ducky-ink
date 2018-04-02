@@ -31,7 +31,7 @@ module.exports = {
           output = "";
 
         if (args.length == 0) {
-          message.reply("Here is the current contents of my `" + file + "` settings.  Available commands:\n" + 
+          message.reply("Here is the current contents of my `" + file + "` settings.  Available commands:\n" +
             "`#settings " + file + " modify <option> <value>`");
 
           for (var key in json) {
@@ -50,15 +50,15 @@ module.exports = {
 
           bot.settings(file);
 
-          if(action == 'modify'){
+          if (action == 'modify') {
             let key = args.shift();
-            if(bot.settings(file)[key]){
+            if (bot.settings(file)[key]) {
               let value = args.join(' ');
               bot.cache[file][key] = value;
-            }else{
+            } else {
               output = key + "doesn't appear to be a valid piece of my " + file + " settings.";
             }
-          }else{
+          } else {
             output = "I don't know how to " + action + " settings!";
           }
 

@@ -77,7 +77,7 @@ module.exports = {
             }
 
             message.channel.send("<" + story.meta.url + ">");
-            message.channel.send({ 
+            message.channel.send({
               embed: {
                 color: parseInt(story.attributes.color.hex, 16),
                 author: author,

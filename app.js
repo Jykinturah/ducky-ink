@@ -26,7 +26,7 @@ var DuckyInk = new function() {
   this.run = function() {
     var bot = this;
 
-    MongoClient.connect("mongodb://localhost:27017/duckydb", (err,database) => {
+    MongoClient.connect("mongodb://localhost:27017/duckydb", (err, database) => {
       if (err) throw err;
       console.log("MongoDB Connected! Database: duckydb");
       db = database;
