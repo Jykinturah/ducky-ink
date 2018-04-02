@@ -1,7 +1,7 @@
 module.exports = {
   command: {
-    "name": "Word Counts",
-    "desc": "I can save your wordcounts!",
+    "name": "#wordcount",
+    "desc": "I can save your word counts!",
     "group": "General",
     "prompts": [
       '#wordcount'
