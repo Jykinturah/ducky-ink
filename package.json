@@ -1,6 +1,6 @@
 {
   "name": "ducky-ink",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A NodeJS Bot for Discord forked from SoulBOT by ktrzonkowski",
   "main": "app.js",
   "engines": {
@@ -25,7 +25,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "pm2 start app.js --name \"ducky-ink\" --watch",
+    "start": "pm2 start app.js --name \"ducky-ink\"",
     "stop": "pm2 stop ducky-ink",
     "restart": "pm2 restart ducky-ink",
     "beautify": "node ./beautify.js"
