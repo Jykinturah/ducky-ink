@@ -16,7 +16,7 @@ module.exports = {
     var output = "";
 
     bot.server.emojis.map(function(emoji) {
-      output += emoji.toString() + " :" + emoji.name + ": \r\n";
+      output += emoji.toString() + " :" + emoji.name + ":   ";
       if (output.length >= 1500) {
         message.channel.send(output).catch(console.error);
         output = "";
