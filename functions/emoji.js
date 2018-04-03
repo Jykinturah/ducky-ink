@@ -17,8 +17,14 @@ module.exports = {
 
     bot.server.emojis.map(function(emoji) {
       output += emoji.toString() + " :" + emoji.name + ": \r\n";
+      if (output.length >= 1500) {
+        message.channel.send(output).catch(console.error);
+        output = "";
+      }
     });
 
-    message.channel.sendMessage(output).catch(console.error);
+    if (output.length > 0) {
+      message.channel.send(output).catch(console.error);
+    }
   }
 }
