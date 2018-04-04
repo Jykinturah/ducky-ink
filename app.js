@@ -21,6 +21,7 @@ var DuckyInk = new function() {
   this.commands = [];
   this.helpers = {};
   this.pings = {}; // TODO - move to memory
+  this.scheds = {};
   this.config = JSON.parse(fs.readFileSync("./config.json"));
 
   this.run = function() {
