@@ -26,7 +26,7 @@ module.exports = {
 
         bot.helpers.getMETA(link[0], function(meta) {
           if (meta.image) {
-            message.reply(chance.pickone(bot.soul('deviantArtResponses')) + " " + meta.image);
+            message.reply(chance.pickone(bot.soul('deviantArtResponses')), {embed: {image: {url: meta.image}}});
           }
         });
       }
