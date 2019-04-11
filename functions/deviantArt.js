@@ -9,7 +9,7 @@ module.exports = {
     "noMention": true,
     "noMentionLikelihood": 100,
     "prompts": [
-      "(http(s)?:\/\/.*deviantart.com\/art\/[^ ]+)"
+      /(https?:\/\/[^\s\/]*deviantart.com\/[^\s\/]+\/art\/[^\s]+)/gi
     ],
     "role": "All",
     "channels": [
