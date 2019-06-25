@@ -55,24 +55,22 @@ module.exports = {
       if(option === "set"){
         bot.settings("newChapter");
         let setOp = args.shift();
-        if(!setOp || ( setOp != "msg" && setOp != "role" && msg != "channel")){
+        if(!setOp || ( setOp != "msg" && setOp != "role" && setOp != "channel")){
           message.channel.send("Please specify `msg`, `role`, or `channel`!\n Ex: `newchapter <story> set msg <message>`").catch((err) => {console.log(err);});
           return;
         }else{
+          args = args.join(" ");
           if(setOp === "msg"){
-            args = args.join(" ");
             storyObject.msgstr = args;
           } else if (setOp === "role") {
-            args = args.join(" ");
             storyObject.mentionRole = args;
           } else if (setOp === "channel") {
-            args = args.join(" ");
-            storyObject.mentionRole = args;
+            storyObject.channelName = args;
           }
           newChapterSettings[storyTag] = storyObject;
           bot.cache["newChapter"] = newChapterSettings;
           bot.helpers.updateSettings("newChapter");
-          message.channel.send("Set!").catch((err) => {console.log(err);});
+          message.channel.send("Set!\n```\n" + setOp + ": " + args + "\n```").catch((err) => {console.log(err);});
         }
       }
     }
