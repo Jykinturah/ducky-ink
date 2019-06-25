@@ -16,11 +16,70 @@ module.exports = {
     // let announcementChannel = 385935248594042880; // TODO: MOVE THIS INTO CONFIGURABLE FILE
     // let authorUser = message.guild.members.get(208689647981690882);
     // let targetRole = message.guild.roles.find("name","Book Bringers");
-
     let newChapterSettings = bot.settings("newChapter");
 
+    if(args == "") {
+      let storyTitles = Object.keys(newChapterSettings);
+      let rspStry = "The stories I have hardcoded currently are:\n```\n";
+      storyTitles.forEach((stryItem) => {
+        if(stryItem != "TEST_OBJECT_FIELD")
+          rspStry += stryItem + " (" + newChapterSettings[stryItem].fimficStoryID + ")\n";
+      });
+      rspStry += "```";
+      message.channel.send(rspStry).catch((err) => {console.log(err);});
+      return;
+    }
+
+    args = args.split(" ");
+
+    let storyTag = args.shift();
+    if(storyTag == "TEST_OBJECT_FIELD") {message.channel.send("Couldn't find that story, sorry!").catch((err) => {console.log(err);});return;}
+    let storyObject = newChapterSettings[storyTag];
+    if(!storyObject){message.channel.send("Couldn't find that story, sorry!").catch((err) => {console.log(err);});return;}
+
+    if(args.length < 1){
+      this.sendStory(bot,args,message,storyObject);
+      return;
+    } else {
+      let option = args.shift();
+      if(option === "test"){
+        let testMsg = "Testing! Normally I would use:\n";
+        testMsg += "Channel Name: `" + storyObject.channelName + "`\n";
+        testMsg += "Mention Role: `" + storyObject.mentionRole + "`";
+        message.channel.send(testMsg).catch((err) => {console.log(err);});
+        storyObject.authorID = newChapterSettings["TEST_OBJECT_FIELD"].authorID;
+        storyObject.channelName = newChapterSettings["TEST_OBJECT_FIELD"].channelName;
+        storyObject.mentionRole = newChapterSettings["TEST_OBJECT_FIELD"].mentionRole;
+        this.sendStory(bot,args,message,storyObject);
+      }
+      if(option === "set"){
+        bot.settings("newChapter");
+        let setOp = args.shift();
+        if(!setOp || ( setOp != "msg" && setOp != "role" && msg != "channel")){
+          message.channel.send("Please specify `msg`, `role`, or `channel`!\n Ex: `newchapter <story> set msg <message>`").catch((err) => {console.log(err);});
+          return;
+        }else{
+          if(setOp === "msg"){
+            args = args.join(" ");
+            storyObject.msgstr = args;
+          } else if (setOp === "role") {
+            args = args.join(" ");
+            storyObject.mentionRole = args;
+          } else if (setOp === "channel") {
+            args = args.join(" ");
+            storyObject.mentionRole = args;
+          }
+          newChapterSettings[storyTag] = storyObject;
+          bot.cache["newChapter"] = newChapterSettings;
+          bot.helpers.updateSettings("newChapter");
+          message.channel.send("Set!").catch((err) => {console.log(err);});
+        }
+      }
+    }
+  },
+  sendStory: function(bot, args, message, storyObject){
     bot.helpers.getJSON({ // fetch story
-      url: "https://www.fimfiction.net/api/v2/stories/" + newChapterSettings.fimficStoryID,
+      url: "https://www.fimfiction.net/api/v2/stories/" + storyObject.fimficStoryID,
       headers: {
         "User-Agent": bot.config.userAgent,
         "Authorization": "Bearer " + bot.config.fimfictionAccessKey
@@ -40,7 +99,7 @@ module.exports = {
       }
 
       bot.helpers.getJSON({ // fetch chapters
-          url: "https://www.fimfiction.net/api/v2/stories/" + newChapterSettings.fimficStoryID + "/chapters",
+          url: "https://www.fimfiction.net/api/v2/stories/" + storyObject.fimficStoryID + "/chapters",
           headers: {
             "User-Agent": bot.config.userAgent,
             "Authorization": "Bearer " + bot.config.fimfictionAccessKey
@@ -52,17 +111,26 @@ module.exports = {
           let publishedDate = new Date(chapter.attributes.date_published)
           let formattedDate = publishedDate.getDate() + ' ' + bot.helpers.months[publishedDate.getMonth()] + ' ' + publishedDate.getFullYear();
 
-          let msgString = "Hi " + bot.client.guilds.get(newChapterSettings.guildID).roles.find("name", newChapterSettings.mentionRole) + "! " +
-            "The newest chapter of " + story.attributes.title + " is up! " +
-            "Please remember to keep all spoilers to the appropriate channel, " +
-            "and send any complaints regarding any potential " +
-            "broken hearts to <@" + newChapterSettings.authorID + ">!\n\n" +
-            "Thank you for your support! <3"
+          let mentionRoleStr = bot.client.guilds.get(storyObject.guildID).roles.find("name", storyObject.mentionRole);
+          let titleStr = "_" + story.attributes.title + "_";
+          let authorStr = "<@" + storyObject.authorID + ">";
 
-          if (newChapterSettings.emojiName)
-            msgString += "\n" + bot.client.emojis.find("name", newChapterSettings.emojiName);
+          let msgString = storyObject.msgstr.replace("{mentionrole}",mentionRoleStr).replace("{title}",titleStr).replace("{author}",authorStr);
 
-          let targetChannel = bot.client.channels.find("name", newChapterSettings.channelName);
+          /*
+          "Hi {mentionrole}! The newest chapter of {title} is up! Please remember to keep all spoilers to the appropriate channel, and send any complaints regarding any potential broken hearts to {author}!
+
+          Thank you for your support! <3"
+
+          {mentionrole} = bot.client.guilds.get(storyObject.guildID).roles.find("name", storyObject.mentionRole)
+          {title} = story.attributes.title
+          {author} =  "<@" + storyObject.authorID + ">"
+          */
+
+          if (storyObject.emojiName)
+            msgString += "\n" + bot.client.emojis.find("name", storyObject.emojiName);
+
+          let targetChannel = bot.client.channels.find("name", storyObject.channelName);
 
           targetChannel.send(msgString);
           targetChannel.send("<" + chapter.meta.url + ">");
