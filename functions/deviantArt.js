@@ -9,7 +9,7 @@ module.exports = {
     "noMention": true,
     "noMentionLikelihood": 100,
     "prompts": [
-      /(https?:\/\/[^\s\/]*deviantart.com\/[^\s\/]+\/art\/[^\s]+)/gi
+      /(https?:\/\/[^\s\/]*deviantart.com\/[^\s\/]+\/art\/[^\s\>]+)/gi
     ],
     "role": "All",
     "channels": [
@@ -26,7 +26,16 @@ module.exports = {
 
         bot.helpers.getMETA(link[0], function(meta) {
           if (meta.image) {
-            message.reply(chance.pickone(bot.soul('deviantArtResponses')), {embed: {image: {url: meta.image}}});
+            message.reply(chance.pickone(bot.soul('deviantArtResponses')), 
+              { embed: {
+                title: meta.title,
+                url: meta.url,
+                description: meta.description,
+                image: {url: meta.image}
+              }
+            });
+          } else if (meta.error) {
+            message.reply(meta.error);
           }
         });
       }

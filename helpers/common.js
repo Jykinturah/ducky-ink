@@ -123,12 +123,16 @@ module.exports = function(bot) {
         },
         function(error, response, data) {
           try {
-            var regex = new RegExp('<meta property="og:([^"]+)" content="([^"]+)">', 'g'),
-              meta = {},
-              tmp;
+            var regex = new RegExp('<meta property="og:([^"]+)" content="([^"]+)">', 'g');
+            var meta = {};
+            var tmp;
 
             while (tmp = regex.exec(data)) {
               meta[tmp[1]] = tmp[2];
+            }
+
+            if(meta.length < 1){
+              meta.error = "I can't grab the image because I am fetching from deviantArt Eclipse! Please let my programmer know!";
             }
 
             callback(meta);
