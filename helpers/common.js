@@ -164,7 +164,7 @@ module.exports = function(bot) {
       }
 
       for (var i = 0, len = checkRole.length; i < len; i++) {
-        var role = bot.server.roles.find('name', checkRole[i]);
+        var role = bot.server.roles.find((role) => {return role.name === checkRole[i]});
 
         if (!role) {
           continue;

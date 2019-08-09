@@ -7,20 +7,16 @@
     "node": "8.0.0"
   },
   "dependencies": {
-    "braces": "^2.3.1",
     "chance": "^1.0.18",
     "discord.js": "^11.5.1",
-    "forever": "^0.15.3",
     "fs": "0.0.1-security",
     "glob": "^7.1.4",
     "js-beautify": "^1.10.2",
     "moment-timezone": "^0.5.26",
     "natural": "^0.5.6",
     "node-emoji": "^1.10.0",
-    "node-persist": "^2.1.0",
-    "numeral": "^2.0.6",
-    "request": "^2.88.0",
-    "sentiment": "^4.2.0"
+    "node-persist": "^3.0.5",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {

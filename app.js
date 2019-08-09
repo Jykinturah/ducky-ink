@@ -7,7 +7,7 @@ var Discord = require('discord.js'),
   chance = require('chance');
 
 moment.tz.setDefault("America/Los_Angeles");
-memory.initSync();
+memory.init();
 
 var DuckyInk = new function() {
   this.client = new Discord.Client();
@@ -129,7 +129,7 @@ var DuckyInk = new function() {
     bot.client.on("guildMemberAdd", function(user) {
       setTimeout(function() {
         if (bot.config.announceNewUsers) {
-          bot.server.channels.find("name", bot.config.mainChat).send(bot.soul("configuration").newUser.messageServer.replace("{newUser}", user.toString()));
+          bot.server.channels.find((channel) => {return channel.name === bot.config.mainChat}).send(bot.soul("configuration").newUser.messageServer.replace("{newUser}", user.toString()));
         }
 
         if (bot.config.greetNewUsersPersonally) {
